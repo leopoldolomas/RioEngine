@@ -28,7 +28,7 @@
 //--------------------------------------------------------------- @License ends
 
 #include "cbulletproperties.h"
-#include "bullet/btcustom.h"
+#include "misc/btcustom.h"
 
 //-----------------------------------------------------------------------------
 

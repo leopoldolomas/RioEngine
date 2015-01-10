@@ -28,7 +28,7 @@
 //--------------------------------------------------------------- @License ends
 
 #include "staticfuncs.h"
-#include "bullet/btcustom.h"
+#include "misc/btcustom.h"
 #include "misc/stringhelper.hpp"
 #include "clengine/classetsrepository.h"
 #include "clengine/clpolygon.h"

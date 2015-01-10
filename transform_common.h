@@ -30,7 +30,7 @@
 #ifndef __TRANSFORM_COMMON_H
 #define __TRANSFORM_COMMON_H
 
-#include "bullet/btcustom.h"
+#include "misc/btcustom.h"
 #include "misc/transform.h"
 
 #endif // __TRANSFORM_COMMON_H

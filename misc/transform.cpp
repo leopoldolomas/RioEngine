@@ -28,7 +28,7 @@
 //--------------------------------------------------------------- @License ends
 
 #include "constants.h"
-#include "bullet/btcustom.h"
+#include "misc/btcustom.h"
 #include "cengine/cgameobject.h"
 #include "transform.h"
 

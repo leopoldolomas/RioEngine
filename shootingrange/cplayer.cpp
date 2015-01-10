@@ -28,7 +28,7 @@
 //--------------------------------------------------------------- @License ends
 
 #include <string>
-#include "bullet/btcustom.h"
+#include "misc/btcustom.h"
 #include "misc/mathhelper.hpp"
 #include "inputmanager/inputmanager.h"
 #include "cengine/cactioninterval.h"

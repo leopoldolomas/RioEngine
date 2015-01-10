@@ -31,7 +31,7 @@
 #define RIOENGINE_MISC_TRANSFORM_H_
 
 #include "cengine/cobject.h"
-#include "bullet/btcustomtransform.h"
+#include "misc/btcustomtransform.h"
 
 class CGameScene;
 

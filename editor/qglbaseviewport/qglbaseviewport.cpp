@@ -29,7 +29,7 @@
 
 #include <QtOpenGL>
 #include "constants.h"
-#include "bullet/btcustom.h"
+#include "misc/btcustom.h"
 #include "misc/directoryhelper.hpp"
 #include "cengine/ccamera.h"
 #include "cengine/cdirector.h"

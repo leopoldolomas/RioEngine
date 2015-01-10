@@ -29,7 +29,7 @@
 
 #include "constants.h"
 #include "staticfuncs.h"
-#include "bullet/btcustom.h"
+#include "misc/btcustom.h"
 #include "misc/genericshelper.hpp"
 #include "cengine/carray.h"
 #include "clengine/clpolygon.h"

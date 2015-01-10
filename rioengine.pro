@@ -225,8 +225,6 @@ HEADERS += \
     bullet/vectormath/vmInclude.h \
     bullet/btBulletCollisionCommon.h \
     bullet/btBulletDynamicsCommon.h \
-    bullet/btcustom.h \
-    bullet/btcustomtransform.h \
     bullet/Bullet-C-Api.h \
     cengine/caction.h \
     cengine/cactioninterval.h \
@@ -316,7 +314,9 @@ HEADERS += \
     macro.h \
     staticfuncs.h \
     transform_common.h \
-    typedefs.h
+    typedefs.h \
+    misc/btcustom.h \
+    misc/btcustomtransform.h
 
 SOURCES += \
     bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp \
@@ -440,8 +440,6 @@ SOURCES += \
     bullet/LinearMath/btSerializer.cpp \
     bullet/LinearMath/btVector3.cpp \
     bullet/matrix/matrices.cpp \
-    bullet/btcustom.cpp \
-    bullet/btcustomtransform.cpp \
     cengine/caction.cpp \
     cengine/cactioninterval.cpp \
     cengine/cactionmanager.cpp \
@@ -512,7 +510,9 @@ SOURCES += \
     tinyxml/tinyxmlerror.cpp \
     tinyxml/tinyxmlparser.cpp \
     main.cpp \
-    staticfuncs.cpp
+    staticfuncs.cpp \
+    misc/btcustom.cpp \
+    misc/btcustomtransform.cpp
 
 FORMS += \
     editor/logwindow/logwindow.ui \
