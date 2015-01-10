@@ -1,0 +1,845 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>EditorWindow</class>
+ <widget class="QMainWindow" name="EditorWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="palette">
+   <palette>
+    <active>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </active>
+    <inactive>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </inactive>
+    <disabled>
+     <colorrole role="WindowText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Button">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Text">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="ButtonText">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>0</red>
+        <green>0</green>
+        <blue>0</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Base">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+     <colorrole role="Window">
+      <brush brushstyle="SolidPattern">
+       <color alpha="255">
+        <red>239</red>
+        <green>239</green>
+        <blue>242</blue>
+       </color>
+      </brush>
+     </colorrole>
+    </disabled>
+   </palette>
+  </property>
+  <property name="windowTitle">
+   <string>Rio Engine 0.1</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../rioengine.qrc">
+    <normaloff>:/images/icon.png</normaloff>:/images/icon.png</iconset>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"> QListView::item
+{
+	height: 20px;
+}
+
+ QListView::item:selected:!active {
+    background: #b1b3b5;
+	color: black;
+	font: bold 14px;
+ }
+
+ QListView::item:selected:active {
+    background: #b1b3b5;
+    color: black;
+font: bold 14px;
+ }</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="wViewportContainer" native="true">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>661</width>
+      <height>501</height>
+     </rect>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1280</width>
+     <height>21</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>FILE</string>
+    </property>
+    <widget class="QMenu" name="menuRecent_scenes">
+     <property name="title">
+      <string>Recent scenes</string>
+     </property>
+     <addaction name="actionHello"/>
+    </widget>
+    <addaction name="actionNewScene"/>
+    <addaction name="actionOpen"/>
+    <addaction name="separator"/>
+    <addaction name="actionSave_Scene_2"/>
+    <addaction name="actionSave_As"/>
+    <addaction name="separator"/>
+    <addaction name="menuRecent_scenes"/>
+    <addaction name="separator"/>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>HELP</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>EDIT</string>
+    </property>
+    <addaction name="actionUndo"/>
+    <addaction name="actionRedo"/>
+    <addaction name="separator"/>
+    <addaction name="actionMenuGlobal"/>
+    <addaction name="actionMenuLocal"/>
+    <addaction name="separator"/>
+    <addaction name="actionNone"/>
+    <addaction name="actionTranslate"/>
+    <addaction name="actionRotate"/>
+    <addaction name="actionScale"/>
+    <addaction name="actionUniform_Scale"/>
+    <addaction name="separator"/>
+    <addaction name="actionDuplicate"/>
+    <addaction name="actionDelete"/>
+   </widget>
+   <widget class="QMenu" name="menuTools">
+    <property name="title">
+     <string>TOOLS</string>
+    </property>
+    <addaction name="actionBulletProfiler"/>
+    <addaction name="actionQuery_bullet_profileredi"/>
+    <addaction name="separator"/>
+    <addaction name="actionMemory_Leaks_detection"/>
+   </widget>
+   <widget class="QMenu" name="menuView">
+    <property name="title">
+     <string>VIEW</string>
+    </property>
+    <addaction name="actionReset_Camera"/>
+   </widget>
+   <widget class="QMenu" name="menuPlay">
+    <property name="title">
+     <string>PLAY</string>
+    </property>
+    <addaction name="actionPlay"/>
+   </widget>
+   <widget class="QMenu" name="menuGAME_OBJECT">
+    <property name="title">
+     <string>GAME OBJECT</string>
+    </property>
+    <addaction name="actionCreate_new"/>
+    <addaction name="separator"/>
+    <addaction name="actionAutoRecalc_AABB_on_resize"/>
+    <addaction name="actionRecalc_AABB"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
+   <addaction name="menuView"/>
+   <addaction name="menuGAME_OBJECT"/>
+   <addaction name="menuTools"/>
+   <addaction name="menuPlay"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <widget class="QToolBar" name="tbFileControl">
+   <property name="windowTitle">
+    <string>Scene Controls</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNewScene"/>
+   <addaction name="actionOpen"/>
+   <addaction name="actionSave_Scene_2"/>
+   <addaction name="actionSave_As"/>
+  </widget>
+  <widget class="QToolBar" name="toolBar">
+   <property name="windowTitle">
+    <string>Manipulators</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*
+    QToolBar 
+{
+  margin-top: 7px;
+  margin-bottom: 7px;
+  border-bottom: transparent;
+}
+ QToolButton 
+ {
+   width:24px;    
+   height:16px;    
+ }
+
+ QToolButton:hover
+ {
+    border-style: none;
+    background-color: #fff;
+ }
+   */ </string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionNone"/>
+   <addaction name="actionTranslate"/>
+   <addaction name="actionRotate"/>
+   <addaction name="actionScale"/>
+   <addaction name="actionUniform_Scale"/>
+   <addaction name="separator"/>
+  </widget>
+  <widget class="QDockWidget" name="dwProperties">
+   <property name="minimumSize">
+    <size>
+     <width>280</width>
+     <height>144</height>
+    </size>
+   </property>
+   <property name="maximumSize">
+    <size>
+     <width>500</width>
+     <height>1080</height>
+    </size>
+   </property>
+   <property name="allowedAreas">
+    <set>Qt::LeftDockWidgetArea|Qt::RightDockWidgetArea</set>
+   </property>
+   <property name="windowTitle">
+    <string>Property Browser</string>
+   </property>
+   <attribute name="dockWidgetArea">
+    <number>2</number>
+   </attribute>
+   <widget class="QWidget" name="dwPropertiesContents">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <property name="leftMargin">
+      <number>0</number>
+     </property>
+     <property name="topMargin">
+      <number>0</number>
+     </property>
+     <property name="rightMargin">
+      <number>0</number>
+     </property>
+     <property name="bottomMargin">
+      <number>0</number>
+     </property>
+     <item>
+      <layout class="QVBoxLayout" name="mainLayout">
+       <property name="spacing">
+        <number>2</number>
+       </property>
+       <property name="leftMargin">
+        <number>2</number>
+       </property>
+       <property name="topMargin">
+        <number>2</number>
+       </property>
+       <property name="rightMargin">
+        <number>2</number>
+       </property>
+       <property name="bottomMargin">
+        <number>2</number>
+       </property>
+      </layout>
+     </item>
+    </layout>
+   </widget>
+  </widget>
+  <widget class="QToolBar" name="toolBar_2">
+   <property name="windowTitle">
+    <string>Undo/Redo Controls</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionUndo"/>
+   <addaction name="actionRedo"/>
+  </widget>
+  <widget class="QToolBar" name="tbBullet">
+   <property name="windowTitle">
+    <string>Bullet Debug Options</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QToolBar" name="tbCameraControls">
+   <property name="windowTitle">
+    <string>Camera Controls</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionReset_Camera"/>
+   <addaction name="actionToggleCameraSpeed"/>
+  </widget>
+  <widget class="QToolBar" name="tbPlay">
+   <property name="windowTitle">
+    <string>Game Controls</string>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*QToolBar 
+{
+  margin-top: 7px;
+  margin-bottom: 7px;
+  border-bottom: transparent;
+}
+ QToolButton 
+ {
+   width:24px;    
+   height:16px;    
+ }
+
+ QToolButton:hover
+ {
+    border-style: none;
+    background-color: #fff;
+ }
+*/</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionPlay"/>
+   <addaction name="actionStop"/>
+  </widget>
+  <action name="actionScale">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/resize-26.png</normaloff>:/images/metro/resize-26.png</iconset>
+   </property>
+   <property name="text">
+    <string>Scale</string>
+   </property>
+   <property name="toolTip">
+    <string>Scale the object selected in editor</string>
+   </property>
+  </action>
+  <action name="actionTranslate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/fit_to_width.png</normaloff>:/images/metro/fit_to_width.png</iconset>
+   </property>
+   <property name="text">
+    <string>Translate</string>
+   </property>
+   <property name="toolTip">
+    <string>Translate the selected object in editor</string>
+   </property>
+   <property name="statusTip">
+    <string>Translate the selected object in editor</string>
+   </property>
+  </action>
+  <action name="actionRotate">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/rotate-26.png</normaloff>:/images/metro/rotate-26.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rotate</string>
+   </property>
+   <property name="toolTip">
+    <string>Rotate the object selected in editor</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="text">
+    <string>Copy</string>
+   </property>
+  </action>
+  <action name="actionDuplicate">
+   <property name="text">
+    <string>Duplicate</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+D</string>
+   </property>
+  </action>
+  <action name="actionDelete">
+   <property name="text">
+    <string>Delete</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="actionNone">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/cursorarrow.png</normaloff>:/images/metro/cursorarrow.png</iconset>
+   </property>
+   <property name="text">
+    <string>None</string>
+   </property>
+   <property name="toolTip">
+    <string>Only selection mode</string>
+   </property>
+  </action>
+  <action name="actionUniform_Scale">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/resize-uniform-32.png</normaloff>:/images/metro/resize-uniform-32.png</iconset>
+   </property>
+   <property name="text">
+    <string>Uniform Scale</string>
+   </property>
+   <property name="toolTip">
+    <string>Scale the object uniformly</string>
+   </property>
+  </action>
+  <action name="actionMenuGlobal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Global</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F1</string>
+   </property>
+  </action>
+  <action name="actionMenuLocal">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Local</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+F2</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>About</string>
+   </property>
+  </action>
+  <action name="actionReset_Camera">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/available_updates.png</normaloff>:/images/metro/available_updates.png</iconset>
+   </property>
+   <property name="text">
+    <string>Reset Camera</string>
+   </property>
+  </action>
+  <action name="actionPlay">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/play.png</normaloff>:/images/metro/play.png</iconset>
+   </property>
+   <property name="text">
+    <string>Play</string>
+   </property>
+   <property name="toolTip">
+    <string>Start the game</string>
+   </property>
+   <property name="shortcut">
+    <string>F5</string>
+   </property>
+  </action>
+  <action name="actionRun_Settings">
+   <property name="text">
+    <string>Run Settings...</string>
+   </property>
+  </action>
+  <action name="actionUndo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/undo.png</normaloff>:/images/metro/undo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Undo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
+   </property>
+  </action>
+  <action name="actionRedo">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/redo.png</normaloff>:/images/metro/redo.png</iconset>
+   </property>
+   <property name="text">
+    <string>Redo</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Y</string>
+   </property>
+  </action>
+  <action name="actionShader_Designer">
+   <property name="text">
+    <string>Launch Shader Designer</string>
+   </property>
+  </action>
+  <action name="actionSave_Scene_2">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/save.png</normaloff>:/images/metro/save.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save Scene</string>
+   </property>
+   <property name="toolTip">
+    <string>Save the current scene</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+S</string>
+   </property>
+  </action>
+  <action name="actionSave_As">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/save_as.png</normaloff>:/images/metro/save_as.png</iconset>
+   </property>
+   <property name="text">
+    <string>Save As</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+S</string>
+   </property>
+  </action>
+  <action name="actionStop">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/stop.png</normaloff>:/images/metro/stop.png</iconset>
+   </property>
+   <property name="text">
+    <string>Stop</string>
+   </property>
+   <property name="shortcut">
+    <string>Shift+F5</string>
+   </property>
+  </action>
+  <action name="actionQuery_bullet_profileredi">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/detective.png</normaloff>:/images/metro/detective.png</iconset>
+   </property>
+   <property name="text">
+    <string>Query bullet profiler</string>
+   </property>
+  </action>
+  <action name="actionBulletProfiler">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/pie.png</normaloff>:/images/metro/pie.png</iconset>
+   </property>
+   <property name="text">
+    <string>Bullet profiler enabled</string>
+   </property>
+   <property name="toolTip">
+    <string>Enables/Disable bullet profiler</string>
+   </property>
+  </action>
+  <action name="actionNewScene">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/add_file.png</normaloff>:/images/metro/add_file.png</iconset>
+   </property>
+   <property name="text">
+    <string>New Scene</string>
+   </property>
+   <property name="toolTip">
+    <string>Create a new scene</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
+   </property>
+  </action>
+  <action name="actionOpen">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/folder.png</normaloff>:/images/metro/folder.png</iconset>
+   </property>
+   <property name="text">
+    <string>Open</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+O</string>
+   </property>
+  </action>
+  <action name="actionExit">
+   <property name="text">
+    <string>Exit</string>
+   </property>
+  </action>
+  <action name="actionCreate_new">
+   <property name="text">
+    <string>Create new...</string>
+   </property>
+  </action>
+  <action name="actionRecalc_AABB">
+   <property name="text">
+    <string>Recalc AABB</string>
+   </property>
+  </action>
+  <action name="actionAutoRecalc_AABB_on_resize">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>AutoRecalc AABB on resize</string>
+   </property>
+  </action>
+  <action name="actionToggleCameraSpeed">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/cameraspeed1.png</normaloff>:/images/metro/cameraspeed1.png</iconset>
+   </property>
+   <property name="text">
+    <string>ToggleCameraSpeed</string>
+   </property>
+   <property name="toolTip">
+    <string>Toggle Camera Speed</string>
+   </property>
+  </action>
+  <action name="actionQuery_CObjects_state">
+   <property name="text">
+    <string>Query CObjects state</string>
+   </property>
+  </action>
+  <action name="actionTmp">
+   <property name="text">
+    <string>tmp</string>
+   </property>
+  </action>
+  <action name="actionHello">
+   <property name="text">
+    <string>replace with list of recent scenes</string>
+   </property>
+  </action>
+  <action name="actionMemory_Leaks_detection">
+   <property name="checkable">
+    <bool>true</bool>
+   </property>
+   <property name="text">
+    <string>Memory Leaks detection</string>
+   </property>
+  </action>
+ </widget>
+ <resources>
+  <include location="../rioengine.qrc"/>
+ </resources>
+ <connections/>
+</ui>
