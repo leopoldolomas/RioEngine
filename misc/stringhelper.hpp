@@ -39,7 +39,7 @@
 //-----------------------------------------------------------------------------
 
 class StringHelper {
- public:
+public:
     static std::vector<std::string> split(const std::string& str, const std::string& delimiters) {
         std::vector<std::string> tokens;
 
@@ -69,9 +69,20 @@ class StringHelper {
 
     //-----------------------------------------------------------------------------
 
-    static std::string& removeOccurrencesOfChar(std::string& original_str, char char_to_remove) {
-        original_str.erase(std::remove(original_str.begin(), original_str.end(), char_to_remove), original_str.end());
+    static std::string& removeOccurrencesOfString(std::string& original_str, std::string& str_to_remove) {
+        std::string::size_type i = original_str.find(str_to_remove);
+
+        if (i != std::string::npos) {
+            original_str.erase(i, str_to_remove.length());
+        }
         return original_str;
+    }
+
+    //-----------------------------------------------------------------------------
+
+    static std::string& removeOccurrencesOfChar(std::string& original_str, char char_to_remove) {
+        std::string str_to_remove = std::string(&char_to_remove);
+        return removeOccurrencesOfString(original_str, str_to_remove);
     }
 };
 

@@ -37,6 +37,7 @@
 #include "misc/md5.h"
 #include "misc/stringhelper.hpp"
 #include "misc/genericshelper.hpp"
+#include "misc/directoryhelper.hpp"
 #include "clengine/clmesh.h"
 #include "clengine/clinstancematerial.h"
 #include "clengine/clbindvertexinput.h"
@@ -73,7 +74,10 @@ CLScene::CLScene(char* filename) : CObject() {
     RE_ASSERT(m_doc->LoadFile());
     RE_ASSERT(m_doc->FirstChildElement("COLLADA"));
 
-    m_md5 = md5(filename);
+    std::string relative_path = StringHelper::removeOccurrencesOfString(
+                std::string((const char*)filename),
+                DirectoryHelper::getProjectDirectory());
+    m_md5 = md5(relative_path);
     unsigned int size = m_md5.size();
     unsigned int index = size - k_CLScene_MD5MaxCharactersCount;
     m_md5 = m_md5.substr(index, k_CLScene_MD5MaxCharactersCount).append("_");
