@@ -316,7 +316,8 @@ HEADERS += \
     transform_common.h \
     typedefs.h \
     misc/btcustom.h \
-    misc/btcustomtransform.h
+    misc/btcustomtransform.h \
+    editor/scripting/codeeditor.h
 
 SOURCES += \
     bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp \
@@ -512,7 +513,8 @@ SOURCES += \
     main.cpp \
     staticfuncs.cpp \
     misc/btcustom.cpp \
-    misc/btcustomtransform.cpp
+    misc/btcustomtransform.cpp \
+    editor/scripting/codeeditor.cpp
 
 FORMS += \
     editor/logwindow/logwindow.ui \
