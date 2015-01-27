@@ -76,7 +76,7 @@ CLScene::CLScene(char* filename) : CObject() {
 
     std::string relative_path = StringHelper::removeOccurrencesOfString(
                 std::string((const char*)filename),
-                DirectoryHelper::getProjectDirectory());
+                DirectoryHelper::getProjectPath());
     m_md5 = md5(relative_path);
     unsigned int size = m_md5.size();
     unsigned int index = size - k_CLScene_MD5MaxCharactersCount;

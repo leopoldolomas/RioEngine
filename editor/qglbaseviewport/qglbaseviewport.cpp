@@ -87,7 +87,7 @@ void QGLBaseViewport::initializeGL() {
 #define PROGRAM_VERTEX_ATTRIBUTE    0
 #define PROGRAM_TEXCOORD_ATTRIBUTE  1
 
-    QString path = QString::fromStdString(DirectoryHelper::getProjectDirectory()) + k_QGLViewport_ShadersFolderName + "\\";
+    QString path = QString::fromStdString(DirectoryHelper::getProjectPath()) + k_QGLViewport_ShadersFolderName + "\\";
 
     QGLShader *solidColor_vshader = new QGLShader(QGLShader::Vertex, this);
     bool result = solidColor_vshader->compileSourceFile(path + "solidcolor.vert");

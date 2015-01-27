@@ -154,7 +154,7 @@ void QCodeEditor::saveChanges() {
 
 void QCodeEditor::loadFile(QString _filename) {
     setFilename(_filename);
-    QString path = QString::fromStdString(DirectoryHelper::getProjectDirectory());
+    QString path = QString::fromStdString(DirectoryHelper::getProjectPath());
     path += QString::fromUtf8(k_Editor_Scripting_ScriptsFolderName) + "\\" + filename();
 
     QFile file(path);

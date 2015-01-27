@@ -190,7 +190,7 @@ void QGLGameViewport::bindTextures() {
          ++i) {
         CLImageDetails* img_detail = i->second;
         if (img_detail->texture == 0) {
-            std::string fixed_filename = DirectoryHelper::getAssetsDirectory() + img_detail->filename;
+            std::string fixed_filename = DirectoryHelper::getAssetsPath() + img_detail->filename;
             GLuint texture_id = bindTexture(QPixmap(QString::fromStdString(fixed_filename)),
                                             GL_TEXTURE_2D);
             img_detail->texture = texture_id;

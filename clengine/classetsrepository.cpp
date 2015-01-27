@@ -33,7 +33,7 @@
 //-----------------------------------------------------------------------------
 
 CLAssetsRepository::CLAssetsRepository() : CLScene() {
-    std::string resources_dir = DirectoryHelper::getProjectDirectory();
+    std::string resources_dir = DirectoryHelper::getProjectPath();
     resources_dir.append("assets\\");
 
     m_resourcesDir = resources_dir;

@@ -49,7 +49,7 @@ CSoundPlayer::CSoundPlayer() {
 //-----------------------------------------------------------------------------
 
 std::string CSoundPlayer::getPathForFilename(const char* filename) {
-    std::string path = DirectoryHelper::getProjectDirectory();
+    std::string path = DirectoryHelper::getProjectPath();
     path.append(k_CSoundPlayer_SoundsFolderName);
     path.append("\\");
     path.append(filename);
