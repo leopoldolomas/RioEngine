@@ -37,6 +37,7 @@
 #include "editor/qglgameeditorviewport/qglgameeditorviewport.h"
 
 class QGLGameEditorViewport;
+class QScriptListWidget;
 class UndoableActionsManager;
 class QGameWindow;
 
@@ -120,6 +121,7 @@ private:
     QStack<QString> m_recentScenes;
     QTimer* m_timer;
     QTimer* m_tmrBulletProfiler;
+    QScriptListWidget* m_scriptListWidget;
 
     bool m_isInitialized;
     bool m_isEditingProperty;
@@ -169,6 +171,7 @@ private slots:
     void on_actionDelete_triggered();
     void on_actionQuery_bullet_profiler_triggered();
     void on_actionOpen_triggered();
+    void on_actionScripts_triggered();
 
     void afterViewportInitializeGLCall(QGLGameViewport* game_viewport);
     void onBulletProfilerTimeout();

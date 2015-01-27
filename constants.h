@@ -33,6 +33,7 @@
 static const char* k_RioEngineProjectPath          = "C:\\rioengine\\";
 static const char* k_CSoundPlayer_SoundsFolderName = "sound";
 static const char* k_QGLViewport_ShadersFolderName = "shaders";
+static const char* k_Editor_Scripting_ScriptsFolderName = "scripts";
 
 /**
   * Scene files default extension

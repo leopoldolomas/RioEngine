@@ -39,26 +39,66 @@
 ****************************************************************************/
 
 #include <QtWidgets>
+#include "misc/directoryhelper.hpp"
+#include "macro.h"
+#include "qcodeeditor.h"
 
-#include "codeeditor.h"
+//-----------------------------------------------------------------------------
 
-
-CodeEditor::CodeEditor(QWidget *parent) : QPlainTextEdit(parent)
+QCodeEditor::QCodeEditor(QWidget *parent) : QPlainTextEdit(parent)
 {
+    QFont font;
+    font.setFamily("Courier");
+    font.setStyleHint(QFont::Monospace);
+    font.setFixedPitch(true);
+    font.setPointSize(10);
+    setFont(font);
+
+    QFontMetrics metrics(font);
+    setTabStopWidth(4 * metrics.width(' '));
+
+    setPendingSave(false);
     lineNumberArea = new LineNumberArea(this);
 
     connect(this, SIGNAL(blockCountChanged(int)), this, SLOT(updateLineNumberAreaWidth(int)));
     connect(this, SIGNAL(updateRequest(QRect,int)), this, SLOT(updateLineNumberArea(QRect,int)));
     connect(this, SIGNAL(cursorPositionChanged()), this, SLOT(highlightCurrentLine()));
+    connect(this, SIGNAL(textChanged()), this, SLOT(textChanged()));
 
     updateLineNumberAreaWidth(0);
     highlightCurrentLine();
+
+    QShortcut *m_shortcutHiddenFunct = new QShortcut(QKeySequence("Ctrl+S"),this);
+    connect(m_shortcutHiddenFunct,SIGNAL(activated()), this, SLOT(saveChanges()));
 }
 
+//-----------------------------------------------------------------------------
 
+QString QCodeEditor::filename() const {
+    return m_filename;
+}
 
-int CodeEditor::lineNumberAreaWidth()
-{
+//-----------------------------------------------------------------------------
+
+void QCodeEditor::setFilename(const QString &filename) {
+    m_filename = filename;
+}
+
+//-----------------------------------------------------------------------------
+
+bool QCodeEditor::pendingSave() const {
+    return m_pendingSave;
+}
+
+//-----------------------------------------------------------------------------
+
+void QCodeEditor::setPendingSave(bool pendingSave) {
+    m_pendingSave = pendingSave;
+}
+
+//-----------------------------------------------------------------------------
+
+int QCodeEditor::lineNumberAreaWidth() {
     int digits = 1;
     int max = qMax(1, blockCount());
     while (max >= 10) {
@@ -71,17 +111,15 @@ int CodeEditor::lineNumberAreaWidth()
     return space;
 }
 
+//-----------------------------------------------------------------------------
 
-
-void CodeEditor::updateLineNumberAreaWidth(int /* newBlockCount */)
-{
+void QCodeEditor::updateLineNumberAreaWidth(int /* newBlockCount */) {
     setViewportMargins(lineNumberAreaWidth(), 0, 0, 0);
 }
 
+//-----------------------------------------------------------------------------
 
-
-void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)
-{
+void QCodeEditor::updateLineNumberArea(const QRect &rect, int dy) {
     if (dy)
         lineNumberArea->scroll(0, dy);
     else
@@ -91,20 +129,59 @@ void CodeEditor::updateLineNumberArea(const QRect &rect, int dy)
         updateLineNumberAreaWidth(0);
 }
 
+//-----------------------------------------------------------------------------
 
+void QCodeEditor::textChanged() {
+    if(!pendingSave()) {
+        setWindowTitle(windowTitle() + "*");
+        setPendingSave(true);
+    }
+}
 
-void CodeEditor::resizeEvent(QResizeEvent *e)
-{
+//-----------------------------------------------------------------------------
+
+void QCodeEditor::saveChanges() {
+    QString _filename = QString::fromStdString(DirectoryHelper::getScriptsPath()) + filename();
+    QFile file(_filename);
+    if (file.open(QIODevice::ReadWrite)) {
+        QTextStream stream(&file);
+        stream << toPlainText();
+    }
+    setWindowTitle(filename());
+}
+
+//-----------------------------------------------------------------------------
+
+void QCodeEditor::loadFile(QString _filename) {
+    setFilename(_filename);
+    QString path = QString::fromStdString(DirectoryHelper::getProjectDirectory());
+    path += QString::fromUtf8(k_Editor_Scripting_ScriptsFolderName) + "\\" + filename();
+
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly)) {
+        QMessageBox::information(0, "error", file.errorString());
+    }
+    QTextStream in(&file);
+    QString content = in.readAll();
+    file.close();
+
+    setPlainText(content);
+    setWindowTitle(filename());
+    setPendingSave(false);
+}
+
+//-----------------------------------------------------------------------------
+
+void QCodeEditor::resizeEvent(QResizeEvent *e) {
     QPlainTextEdit::resizeEvent(e);
 
     QRect cr = contentsRect();
     lineNumberArea->setGeometry(QRect(cr.left(), cr.top(), lineNumberAreaWidth(), cr.height()));
 }
 
+//-----------------------------------------------------------------------------
 
-
-void CodeEditor::highlightCurrentLine()
-{
+void QCodeEditor::highlightCurrentLine() {
     QList<QTextEdit::ExtraSelection> extraSelections;
 
     if (!isReadOnly()) {
@@ -122,10 +199,9 @@ void CodeEditor::highlightCurrentLine()
     setExtraSelections(extraSelections);
 }
 
+//-----------------------------------------------------------------------------
 
-
-void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
-{
+void QCodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event) {
     QPainter painter(lineNumberArea);
     painter.fillRect(event->rect(), Qt::lightGray);
 

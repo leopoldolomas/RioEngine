@@ -38,8 +38,8 @@
 **
 ****************************************************************************/
 
-#ifndef CODEEDITOR_H
-#define CODEEDITOR_H
+#ifndef RIOENGINE_EDITOR_SCRIPTING_CODEEDITOR_H_
+#define RIOENGINE_EDITOR_SCRIPTING_CODEEDITOR_H_
 
 #include <QPlainTextEdit>
 #include <QObject>
@@ -52,15 +52,23 @@ class QWidget;
 class LineNumberArea;
 
 
-class CodeEditor : public QPlainTextEdit
+class QCodeEditor : public QPlainTextEdit
 {
     Q_OBJECT
 
 public:
-    CodeEditor(QWidget *parent = 0);
+    QCodeEditor(QWidget *parent = 0);
 
     void lineNumberAreaPaintEvent(QPaintEvent *event);
     int lineNumberAreaWidth();
+
+    void loadFile(QString filename);
+
+    bool pendingSave() const;
+    void setPendingSave(bool pendingSave);
+
+    QString filename() const;
+    void setFilename(const QString &filename);
 
 protected:
     void resizeEvent(QResizeEvent *event) Q_DECL_OVERRIDE;
@@ -69,16 +77,20 @@ private slots:
     void updateLineNumberAreaWidth(int newBlockCount);
     void highlightCurrentLine();
     void updateLineNumberArea(const QRect &, int);
+    void textChanged();
+    void saveChanges();
 
 private:
     QWidget *lineNumberArea;
+    QString m_filename;
+    bool m_pendingSave;
 };
 
 
 class LineNumberArea : public QWidget
 {
 public:
-    LineNumberArea(CodeEditor *editor) : QWidget(editor) {
+    LineNumberArea(QCodeEditor *editor) : QWidget(editor) {
         codeEditor = editor;
     }
 
@@ -92,8 +104,7 @@ protected:
     }
 
 private:
-    CodeEditor *codeEditor;
+    QCodeEditor *codeEditor;
 };
 
-
-#endif
+#endif // RIOENGINE_EDITOR_SCRIPTING_CODEEDITOR_H_

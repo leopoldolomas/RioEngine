@@ -37,6 +37,7 @@
 
 class DirectoryHelper {
  public:
+    // TODO rename to get...PATH
     static std::string getProjectDirectory() {
         return std::string(k_RioEngineProjectPath); // TODO load this value from an INI file instead of hardcode
     }
@@ -45,6 +46,12 @@ class DirectoryHelper {
 
     static std::string getAssetsDirectory() {
         return DirectoryHelper::getProjectDirectory().append("assets\\");
+    }
+
+    //-----------------------------------------------------------------------------
+
+    static std::string getScriptsPath() {
+        return DirectoryHelper::getProjectDirectory().append(k_Editor_Scripting_ScriptsFolderName).append("\\");
     }
 
     //-----------------------------------------------------------------------------

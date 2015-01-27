@@ -49,6 +49,7 @@
 #include "editor/qpropertyeditor/qpropertyeditorwidget.h"
 #include "editor/serialization/qtcustomserialization.hpp"
 #include "editor/serialization/qserializer.h"
+#include "editor/scripting/qscriptlistwidget.h"
 #include "editor/about.h"
 #include "shootingrange/ccustomscene.h"
 #include "ui_editorwindow.h"
@@ -76,6 +77,8 @@ EditorWindow::EditorWindow(QWidget *parent) :
     m_isClosing = false;
     m_currentSceneFilename = "";
     m_isEditingProperty = false;
+
+    m_scriptListWidget = new QScriptListWidget(this);
 
     m_glViewport = new QGLGameEditorViewport(CLASSETSREPOSITORY, NULL);
     QBoxLayout* tmp = new QBoxLayout(QBoxLayout::LeftToRight, 0);
@@ -384,8 +387,11 @@ void EditorWindow::restoreLayout() {
         settings.setArrayIndex(i);
         m_recentScenes.push(settings.value("scene").toString());
     }
+
     settings.endArray();
-    if(m_recentScenes.size() > 10) m_recentScenes.resize(10);
+    if(m_recentScenes.size() > 10) {
+        m_recentScenes.resize(10);
+    }
 
     updateMemoryLeaksDetectionStatus();
 }
@@ -665,6 +671,12 @@ void EditorWindow::on_actionOpen_triggered() {
     if (file_name != "") {
         loadScene(file_name);
     }
+}
+
+//-----------------------------------------------------------------------------
+
+void EditorWindow::on_actionScripts_triggered() {
+    m_scriptListWidget->show();
 }
 
 //-----------------------------------------------------------------------------
@@ -1051,5 +1063,6 @@ void EditorWindow::afterViewportInitializeGLCall(QGLGameViewport* game_viewport)
 //-----------------------------------------------------------------------------
 
 EditorWindow::~EditorWindow() {
+    SAFE_RELEASE(m_scriptListWidget);
     SAFE_RELEASE(ui);
 }

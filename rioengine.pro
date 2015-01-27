@@ -317,7 +317,9 @@ HEADERS += \
     typedefs.h \
     misc/btcustom.h \
     misc/btcustomtransform.h \
-    editor/scripting/codeeditor.h
+    editor/scripting/qcodeeditor.h \
+    editor/scripting/qscriptmodel.h \
+    editor/scripting/qscriptlistwidget.h
 
 SOURCES += \
     bullet/BulletCollision/BroadphaseCollision/btAxisSweep3.cpp \
@@ -514,11 +516,14 @@ SOURCES += \
     staticfuncs.cpp \
     misc/btcustom.cpp \
     misc/btcustomtransform.cpp \
-    editor/scripting/codeeditor.cpp
+    editor/scripting/qcodeeditor.cpp \
+    editor/scripting/qscriptmodel.cpp \
+    editor/scripting/qscriptlistwidget.cpp
 
 FORMS += \
     editor/logwindow/logwindow.ui \
     editor/qgamewindow/qgamewindow.ui \
     editor/qpropertybrowser/qpropertybrowser.ui \
     editor/about.ui \
-    editor/editorwindow.ui
+    editor/editorwindow.ui \
+    editor/scripting/qscriptlistwidget.ui

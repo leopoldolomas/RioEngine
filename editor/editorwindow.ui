@@ -499,6 +499,18 @@ font: bold 14px;
    <addaction name="actionPlay"/>
    <addaction name="actionStop"/>
   </widget>
+  <widget class="QToolBar" name="toolBar_3">
+   <property name="windowTitle">
+    <string>toolBar_3</string>
+   </property>
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+   <addaction name="actionScripts"/>
+  </widget>
   <action name="actionScale">
    <property name="checkable">
     <bool>true</bool>
@@ -835,6 +847,18 @@ font: bold 14px;
    </property>
    <property name="text">
     <string>Memory Leaks detection</string>
+   </property>
+  </action>
+  <action name="actionScripts">
+   <property name="icon">
+    <iconset resource="../rioengine.qrc">
+     <normaloff>:/images/metro/hammer.png</normaloff>:/images/metro/hammer.png</iconset>
+   </property>
+   <property name="text">
+    <string>Scripts</string>
+   </property>
+   <property name="toolTip">
+    <string>Scripts</string>
    </property>
   </action>
  </widget>
