@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>487</width>
-    <height>489</height>
+    <width>493</width>
+    <height>629</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
      <x>10</x>
      <y>60</y>
      <width>471</width>
-     <height>421</height>
+     <height>381</height>
     </rect>
    </property>
   </widget>
@@ -47,6 +47,16 @@
    </property>
    <property name="text">
     <string>Save All &amp;&amp; Compile</string>
+   </property>
+  </widget>
+  <widget class="QPlainTextEdit" name="txtErrors">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>450</y>
+     <width>471</width>
+     <height>171</height>
+    </rect>
    </property>
   </widget>
  </widget>

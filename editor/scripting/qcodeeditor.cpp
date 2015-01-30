@@ -98,6 +98,24 @@ void QCodeEditor::setPendingSave(bool pendingSave) {
 
 //-----------------------------------------------------------------------------
 
+QString QCodeEditor::getScriptContent(QString filename) {
+    QString path = QString::fromStdString(DirectoryHelper::getProjectPath());
+    path += QString::fromUtf8(k_Editor_Scripting_ScriptsFolderName) + "\\" + filename;
+
+    QFile file(path);
+    if(!file.open(QIODevice::ReadOnly)) {
+        return "Error loading file: " + path;
+    }
+
+    QTextStream in(&file);
+    QString content = in.readAll();
+
+    file.close();
+    return content;
+}
+
+//-----------------------------------------------------------------------------
+
 int QCodeEditor::lineNumberAreaWidth() {
     int digits = 1;
     int max = qMax(1, blockCount());
@@ -141,29 +159,25 @@ void QCodeEditor::textChanged() {
 //-----------------------------------------------------------------------------
 
 void QCodeEditor::saveChanges() {
-    QString _filename = QString::fromStdString(DirectoryHelper::getScriptsPath()) + filename();
-    QFile file(_filename);
-    if (file.open(QIODevice::ReadWrite)) {
-        QTextStream stream(&file);
-        stream << toPlainText();
+    if(pendingSave()) {
+        QString _filename = QString::fromStdString(DirectoryHelper::getScriptsPath()) + filename();
+        QFile file(_filename);
+        if (file.open(QIODevice::WriteOnly)) {
+            QTextStream stream(&file);
+            stream << toPlainText();
+            file.close();
+        }
+        setPendingSave(false);
+        setWindowTitle(filename());
     }
-    setWindowTitle(filename());
 }
 
 //-----------------------------------------------------------------------------
 
 void QCodeEditor::loadFile(QString _filename) {
     setFilename(_filename);
-    QString path = QString::fromStdString(DirectoryHelper::getProjectPath());
-    path += QString::fromUtf8(k_Editor_Scripting_ScriptsFolderName) + "\\" + filename();
 
-    QFile file(path);
-    if(!file.open(QIODevice::ReadOnly)) {
-        QMessageBox::information(0, "error", file.errorString());
-    }
-    QTextStream in(&file);
-    QString content = in.readAll();
-    file.close();
+    QString content = getScriptContent(_filename);
 
     setPlainText(content);
     setWindowTitle(filename());

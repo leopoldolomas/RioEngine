@@ -1,11 +1,13 @@
-#ifndef QSCRIPTLISTWIDGET_H
-#define QSCRIPTLISTWIDGET_H
+#ifndef RIOENGINE_EDITOR_SCRIPTING_QSCRIPTLISTWIDGET_H_
+#define RIOENGINE_EDITOR_SCRIPTING_QSCRIPTLISTWIDGET_H_
 
 #include <QDialog>
 
 namespace Ui {
 class QScriptListWidget;
 }
+
+class QCodeEditor;
 
 class QScriptListWidget : public QDialog
 {
@@ -17,12 +19,17 @@ public:
 
 private:
     Ui::QScriptListWidget *ui;
+    QList<QCodeEditor*> m_editors;
+
+    void saveAll();
+    void compileAll();
 
 private slots:
     void on_btnRefresh_clicked();
     void on_btnCompile_clicked();
 
     void on_scriptList_doubleClicked(const QModelIndex &index);
+    void on_editor_destroyed(QObject*);
 };
 
-#endif // QSCRIPTLISTWIDGET_H
+#endif // RIOENGINE_EDITOR_SCRIPTING_QSCRIPTLISTWIDGET_H_
