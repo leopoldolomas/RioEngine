@@ -46,7 +46,7 @@ class CGameScene;
 class CGameObject : public CLNode {
     Q_OBJECT
     Q_PROPERTY(QList<QProperty> DynamicProperties READ dynamicProperties WRITE setDynamicProperties DESIGNABLE false)
-
+    Q_PROPERTY(QString      ScriptName       READ scriptName         WRITE setScriptName                            )
     Q_PROPERTY(int          CObjectType      READ CObjectType        WRITE setCObjectType                           )
     Q_PROPERTY(int          Tag              READ tag                WRITE setTag                                   )
     Q_CLASSINFO("CObjectType", "CustomEnum=CClasses") // TODO improve this
@@ -77,6 +77,9 @@ public:
     CGameObject();
     CGameObject(const CGameObject& game_object);
     const CGameObject& operator=(const CGameObject& game_object);
+
+    QString scriptName() const;
+    void setScriptName(const QString &scriptName);
 
     int CObjectType() const;
     void setCObjectType(int type);
@@ -260,6 +263,8 @@ private:
 
     int  m_CObjectType;
     unsigned int m_uid;
+
+    QString m_scriptName;
 };
 Q_DECLARE_METATYPE(CGameObject)
 

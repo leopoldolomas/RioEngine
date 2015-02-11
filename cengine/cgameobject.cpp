@@ -106,6 +106,18 @@ CActionManager* CGameObject::actionManager() const {
 
 //-----------------------------------------------------------------------------
 
+QString CGameObject::scriptName() const {
+    return m_scriptName;
+}
+
+//-----------------------------------------------------------------------------
+
+void CGameObject::setScriptName(const QString &scriptName) {
+    m_scriptName = scriptName;
+}
+
+//-----------------------------------------------------------------------------
+
 void CGameObject::setName(const std::string& name) {
     setProperty("objectName", QString::fromStdString(name));
 }
