@@ -14,6 +14,8 @@ LIBS += -L"$$_PRO_FILE_PWD_/libs/lib/"
 LIBS += -lWinmm
 LIBS += -lirrKlang
 LIBS += -lvld
+LIBS += opengl32.lib
+LIBS += -luser32
 
 OTHER_FILES += \
     shaders/solidcolor.vert \
