@@ -236,11 +236,11 @@ CArray<CLPolygon>* CLMesh::fixPolygonsArray( std::vector<CLPolygon>* polygons_ar
         fixed_polygons->push_back(polygon);
         vec_array.clear();
     }
-    auto polygons_array = CArray<CLPolygon>::fromStdVector(fixed_polygons);
+    auto polygons_array_p = CArray<CLPolygon>::fromStdVector(fixed_polygons);
     fixed_polygons->clear();
     SAFE_RELEASE(fixed_polygons);
 
-    return polygons_array;
+    return polygons_array_p;
 }
 
 //-----------------------------------------------------------------------------

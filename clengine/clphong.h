@@ -37,7 +37,7 @@ class CLPhongChild;
 class CLPhong : public CObject {
  public:
     CLPhong();
-    CLPhong::CLPhong(const CLPhong&);
+    CLPhong(const CLPhong&);
     CLPhong& operator=(const CLPhong&);
 
     void setEmission(CLPhongChild* emission);
