@@ -48,7 +48,7 @@ public:
     static std::vector<T*>* getCopyFromVector(std::vector<T*>& original_vec) {
         std::vector<T*>* copy_vec = new std::vector<T*>();
 
-        for (std::vector<T*>::iterator it = original_vec.begin();
+        for (auto it = original_vec.begin();
              it != original_vec.end();
              ++it) {
             T* copy_obj = new T(*(*it));
@@ -67,7 +67,7 @@ public:
     static void deleteVector(std::vector<T*>* vec) {
         if (!vec) return;
 
-        for (std::vector<T*>::iterator it = vec->begin();
+        for (auto it = vec->begin();
              it != vec->end();
              ++it) {
             SAFE_RELEASE(*it);
@@ -85,7 +85,7 @@ public:
             return -1;
         }
 
-        for (std::vector<T*>::iterator it = vec->begin();
+        for (auto it = vec->begin();
              it != vec->end();
              ++it) {
             if (*it == obj_to_find) {
@@ -112,7 +112,7 @@ public:
     static bool deleteObjectFromVector(std::vector<T*>* vec, void* object_to_delete) {
         int index = -1;
 
-        for (std::vector<T*>::iterator it = vec->begin();
+        for (auto it = vec->begin();
              it != vec->end();
              ++it) {
             if (*it == object_to_delete) {
@@ -141,7 +141,7 @@ public:
             return;
         }
 
-        std::map<TKey, TVal*>::iterator it = map->begin();
+        auto it = map->begin();
 
         for (; it != map->end(); it++) {
             SAFE_RELEASE(it->second);
