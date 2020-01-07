@@ -79,9 +79,9 @@ class DirectoryHelper {
 
         for (unsigned int i = 0; i < files.size(); i ++) {
             std::string file = files.at(i);
-            std::tr1::regex regex_ext(regex_ext_str);
+            std::regex regex_ext(regex_ext_str);
 
-            if (std::tr1::regex_search(file, regex_ext))
+            if (std::regex_search(file, regex_ext))
                 matches.push_back(file);
         }
         return matches;
