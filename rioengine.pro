@@ -17,6 +17,8 @@ LIBS += -lvld
 LIBS += opengl32.lib
 LIBS += -luser32
 
+QMAKE_CXXFLAGS += -Wno-unused-variable -fpermissive
+
 OTHER_FILES += \
     shaders/solidcolor.vert \
     shaders/solidcolor.frag \
