@@ -81,7 +81,8 @@ EditorWindow::EditorWindow(QWidget *parent) :
     QBoxLayout* tmp = new QBoxLayout(QBoxLayout::LeftToRight, 0);
     tmp->addWidget(m_glViewport);
 
-    loadResources();
+    // Asset loading is deferred until a scene is opened to keep startup
+    // independent of legacy COLLADA files.
 
     CCustomScene* m_gameEditorScene = new CCustomScene();
     connect(m_glViewport, SIGNAL(newGameObjectSelected(uint)),
@@ -296,7 +297,7 @@ void EditorWindow::timeout(void) {
     }
 
     if (m_glViewport) {
-        m_glViewport->updateGL();
+        m_glViewport->update();
     }
 
     CAUTORELEASEPOOL->drain();
@@ -394,16 +395,11 @@ void EditorWindow::restoreLayout() {
 
 CGameObject* EditorWindow::addNodeHavingId(std::string node_id) {
     CGameObject* new_game_object = CDIRECTOR->currentGameScene()->createGameObjectWithNode(node_id);
-    new_game_object->calcSize();
     if (new_game_object) {
+        new_game_object->calcSize();
         selectGameObject(new_game_object);
     } else {
-        QMessageBox msgBox;
-        msgBox.setIcon(QMessageBox::Warning);
-        msgBox.setWindowTitle("Error");
-        msgBox.setText("The node does not exist in the Assets Repository.");
-        msgBox.setStandardButtons(QMessageBox::Ok);
-        msgBox.exec();
+        return NULL;
     }
 
     AddOrRemoveGameObjectAction* action = new AddOrRemoveGameObjectAction(this, CDIRECTOR->currentGameScene(), new_game_object, true);
@@ -932,7 +928,13 @@ void EditorWindow::regenerateBodyIfNeeded(CGameObject* game_object, QString prop
 //-----------------------------------------------------------------------------
 
 void EditorWindow::addDefaultPlane() {
+    if (CLASSETSREPOSITORY->nodes()->empty()) {
+        return;
+    }
     CGameObject* plane = addNodeHavingId("Grass");
+    if (!plane) {
+        return;
+    }
     plane->setbPhysicsEnabled(true);
     plane->setShapeType(CBulletProperties::StaticPlane);
     plane->setbShapeTypePlaneNormal(btVector3(0,0,1));

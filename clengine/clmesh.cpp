@@ -27,6 +27,7 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //--------------------------------------------------------------- @License ends
 
+#include <algorithm>
 #include "constants.h"
 #include "staticfuncs.h"
 #include "misc/btcustom.h"
@@ -190,9 +191,9 @@ CArray<CLPolygon>* CLMesh::fixPolygonsArray( std::vector<CLPolygon>* polygons_ar
         }
     }
 
-    qSort(x_values.begin(), x_values.end(), valueLessThan);
-    qSort(y_values.begin(), y_values.end(), valueLessThan);
-    qSort(z_values.begin(), z_values.end(), valueLessThan);
+    std::sort(x_values.begin(), x_values.end(), valueLessThan);
+    std::sort(y_values.begin(), y_values.end(), valueLessThan);
+    std::sort(z_values.begin(), z_values.end(), valueLessThan);
 
     float x_min = x_values.first();
     float y_min = y_values.first();

@@ -105,10 +105,10 @@ bool CObject::isValidCObject() const {
 
 QDataStream &operator<<(QDataStream &ds, const CObject &obj) {
     for (int i=0; i<obj.metaObject()->propertyCount(); ++i) {
-        if (obj.metaObject()->property(i).isStored(&obj)) {
+        if (obj.metaObject()->property(i).isStored()) {
             const char* prop_name = obj.metaObject()->property(i).name();
             LOG("(%s) - Serializing property: %s", obj.metaObject()->className(), prop_name);
-            ds << obj.metaObject()->property(i).read(&obj);
+            ds << obj.metaObject()->property(i).read(const_cast<CObject*>(&obj));
         }
     }
     return ds;
@@ -119,7 +119,7 @@ QDataStream &operator<<(QDataStream &ds, const CObject &obj) {
 QDataStream &operator>>(QDataStream &ds, CObject &obj) {
     QVariant var;
     for (int i=0; i<obj.metaObject()->propertyCount(); ++i) {
-        if (obj.metaObject()->property(i).isStored(&obj)) {
+        if (obj.metaObject()->property(i).isStored()) {
             const char* prop_name = obj.metaObject()->property(i).name();
             LOG("(%s) - Deserializing property: %s", obj.metaObject()->className(), prop_name);
             ds >> var;

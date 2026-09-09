@@ -34,13 +34,13 @@
 #include "editor/qglgameviewport/bdebugdraw.h"
 
 class CLScene;
-class QGLShaderProgram;
+class QOpenGLShaderProgram;
 
 class CLRenderer {
 public:
-    static bool drawNode(QGLShaderProgram* program, CLScene* collada_scene, CLNode* node, QColor* color);
-    static bool drawLine(QGLShaderProgram* program, btVector3 &from, btVector3 &to, QColor* color);
-    static bool drawDebugLines(QGLShaderProgram* program, std::map<QString, std::vector<bDebugDraw::LineInfo>>* lines);
+    static bool drawNode(QOpenGLShaderProgram* program, CLScene* collada_scene, CLNode* node, QColor* color);
+    static bool drawLine(QOpenGLShaderProgram* program, const btVector3 &from, const btVector3 &to, QColor* color);
+    static bool drawDebugLines(QOpenGLShaderProgram* program, std::map<QString, std::vector<bDebugDraw::LineInfo>>* lines);
 };
 
 #endif  // RIOENGINE_CLENGINE_CLRENDERER_H_

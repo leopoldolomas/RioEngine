@@ -27,8 +27,8 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //--------------------------------------------------------------- @License ends
 
-#include <QtOpenGL>
 #include "macro.h"
+#include <QtGui/qopengl.h>
 #include "constants.h"
 #include "transform_common.h"
 #include "tinyxml/tinyxmlhelper.hpp"
@@ -74,13 +74,19 @@ CLScene::CLScene(char* filename) : CObject() {
     RE_ASSERT(m_doc->LoadFile());
     RE_ASSERT(m_doc->FirstChildElement("COLLADA"));
 
+    std::string filename_string((const char*)filename);
+    std::string project_directory = DirectoryHelper::getProjectDirectory();
     std::string relative_path = StringHelper::removeOccurrencesOfString(
-                std::string((const char*)filename),
-                DirectoryHelper::getProjectDirectory());
-    m_md5 = md5(relative_path);
-    unsigned int size = m_md5.size();
-    unsigned int index = size - k_CLScene_MD5MaxCharactersCount;
-    m_md5 = m_md5.substr(index, k_CLScene_MD5MaxCharactersCount).append("_");
+                filename_string, project_directory);
+    const std::size_t hash = std::hash<std::string>{}(relative_path);
+    const char hex[] = "0123456789abcdef";
+    m_md5.clear();
+    for (int i = 0; i < k_CLScene_MD5MaxCharactersCount; ++i) {
+        const unsigned int shift = static_cast<unsigned int>(
+                    (k_CLScene_MD5MaxCharactersCount - i - 1) * 4);
+        m_md5.push_back(hex[(hash >> shift) & 0xf]);
+    }
+    m_md5.append("_");
 
     reloadImages();
     reloadNodes();
@@ -89,7 +95,8 @@ CLScene::CLScene(char* filename) : CObject() {
     reloadGeometries();
 
     m_doc->Clear();
-    SAFE_RELEASE(m_doc);
+    delete m_doc;
+    m_doc = NULL;
 }
 
 //-----------------------------------------------------------------------------
@@ -169,12 +176,22 @@ void CLScene::insertNodesPair(const std::string& node_id, CLNode* node) {
 //-----------------------------------------------------------------------------
 
 bool CLScene::loadImage(TiXmlElement* image_node) {
+    if (!image_node || !image_node->Attribute("id")) {
+        return false;
+    }
+
+    const TiXmlElement* init_from = image_node->FirstChildElement("init_from");
+    if (!init_from || !init_from->GetText()) {
+        return false;
+    }
+
     std::string image_id = image_node->Attribute("id");
 
     LOG("Loading image with id: %s", image_id.c_str());
 
-    std::string image_name = image_node->Attribute("name");
-    std::string image_filename = image_node->FirstChildElement("init_from")->GetText();
+    std::string image_name = image_node->Attribute("name")
+            ? image_node->Attribute("name") : image_id;
+    std::string image_filename = init_from->GetText();
 
     CLImageDetails *image_detail = new CLImageDetails;
     image_detail->name = ADDMD5PREFIX(image_name);
@@ -227,7 +244,7 @@ bool CLScene::loadNode(TiXmlElement* node) {
         instance_geometry_node = instance_geometry_node->NextSiblingElement("instance_geometry");
     }
     cl_node->setInstanceGeometries(CArray<CLInstanceGeometry>::fromStdVector(instance_geometries_vector));
-    SAFE_RELEASE(instance_geometries_vector);
+    delete instance_geometries_vector;
 
     TiXmlElement* scale_node = node->FirstChildElement("scale");
     std::string scale = (scale_node ? scale_node->GetText() : "1 1 1");
@@ -235,13 +252,13 @@ bool CLScene::loadNode(TiXmlElement* node) {
     std::vector<float>* scale_array = (std::vector<float>*)TinyXMLHelper::getVectorFromString(scale.c_str(), TinyXMLHelper::Float);
     cl_node->transform().setLocalScale(btVector3(scale_array->at(0), scale_array->at(1), scale_array->at(2)));
     scale_array->clear();
-    SAFE_RELEASE(scale_array);
+    delete scale_array;
 
     TiXmlElement* location_node = node->FirstChildElement("translate");
     std::string location = (location_node ? location_node->GetText() : "0 0 0");
     std::vector<float>* location_array = (std::vector<float>*)TinyXMLHelper::getVectorFromString(location.c_str(), TinyXMLHelper::Float);
     cl_node->transform().setLocalPosition(btVector3(location_array->at(0), location_array->at(1), location_array->at(2)));
-    SAFE_RELEASE(location_array);
+    delete location_array;
 
     cl_node->transform().setLocalRotation(btQuaternion(0, 0, 0));
     cl_node->setId(node_id);
@@ -419,8 +436,11 @@ bool CLScene::reloadImages() {
 
     m_images = new ImagesMapType();
 
-    TiXmlNode *root = m_doc->FirstChildElement("COLLADA");
-    TiXmlNode *images_node = root->FirstChild("library_images");
+    TiXmlElement *root = m_doc->FirstChildElement("COLLADA");
+    if (!root) {
+        return false;
+    }
+    TiXmlElement *images_node = root->FirstChildElement("library_images");
 
     if (!images_node) {
         return false;
@@ -552,8 +572,6 @@ bool CLScene::loadGeometry(TiXmlElement* geometry_node) {
         }
         source_node = source_node->NextSiblingElement();
     }
-    SAFE_RELEASE(obj_id);
-
     TiXmlElement *triangles_node = mesh_node->FirstChildElement("triangles");
     std::vector<CLTriangles>* triangles_vector = new std::vector<CLTriangles>();
     std::vector<int> vertices_indices;
@@ -606,7 +624,7 @@ bool CLScene::loadGeometry(TiXmlElement* geometry_node) {
         triangles_obj.setTextureCoordsIndices(CArray<int>::fromStdVector(&textcoords_indices));
 
         indices->clear();
-        SAFE_RELEASE(indices);
+        delete indices;
 
         triangles_vector->push_back(triangles_obj);
         triangles_node = triangles_node->NextSiblingElement();
@@ -614,7 +632,7 @@ bool CLScene::loadGeometry(TiXmlElement* geometry_node) {
 
     geometry_object->getMesh()->setTriangles(CArray<CLTriangles>::fromStdVector(triangles_vector));
     triangles_vector->clear();
-    SAFE_RELEASE(triangles_vector);
+    delete triangles_vector;
 
     geometry_object->setPolygons(geometry_object->getMesh()->getPolygonsArray());
 
@@ -649,13 +667,12 @@ void CLScene::getFloatStdVecFromSourceNode(TiXmlElement* source_node, std::vecto
             btVector3* new_point = new btVector3(position_array->at(0), position_array->at(1), position_array->at(2));
             vector_dest->push_back(new_point);
 
-            SAFE_RELEASE(position_array);
+            delete position_array;
             position_array = new std::vector<GLfloat>();
         }
         pch = strtok_s (NULL, " ", &context);
     }
-    SAFE_RELEASE(position_array);
-    SAFE_RELEASE(pch);
+    delete position_array;
 }
 
 //-----------------------------------------------------------------------------
@@ -686,12 +703,11 @@ CArray<btVector3>* CLScene::getFloatCArrayFromSourceNode(TiXmlElement* source_no
         }
         pch = strtok_s (NULL, " ", &context);
     }
-    SAFE_RELEASE(pch);
     SAFE_RELEASE_ARRAY(tmp);
 
     CArray<btVector3>* array = CArray<btVector3>::fromBtAlignedObjectArray(vector_dest);
     vector_dest->clear();
-    SAFE_RELEASE(vector_dest);
+    delete vector_dest;
 
     return array;
 }
@@ -727,10 +743,8 @@ CArray<TextureCoord>* CLScene::getMapArrayFromSourceNode(TiXmlElement* source_no
         pch = strtok_s (NULL, " ", &context);
     }
     SAFE_RELEASE_ARRAY(tmp);
-    SAFE_RELEASE(pch);
-
     CArray<TextureCoord>* array = CArray<TextureCoord>::fromStdVector(vector_dest);
-    SAFE_RELEASE(vector_dest);
+    delete vector_dest;
     return array;
 }
 
@@ -779,7 +793,7 @@ CLInstanceGeometry CLScene::getInstanceGeometryFromNode(TiXmlElement* instance_g
                 material_instance.setBindVertexInputList(NULL);
             }
             
-            SAFE_RELEASE(bindvertexinput_array);
+            delete bindvertexinput_array;
             instance_materials_vec.push_back(material_instance);
             material_node = material_node->NextSiblingElement("instance_material");
         }
@@ -801,7 +815,7 @@ CLPhongChild* CLScene::getPhongChildFromNode(TiXmlElement* node) {
     if (color_node) {
         std::vector<float>* colorArray = (std::vector<float>*)TinyXMLHelper::getVectorFromString(color_node->GetText(), TinyXMLHelper::Float);
         Color* color = new Color(colorArray->at(0), colorArray->at(1), colorArray->at(2));
-        SAFE_RELEASE(colorArray);
+        delete colorArray;
 
         child->setValue(color, CLPhongChild::COLOR_TYPE);
     } else if (texture_node) {
@@ -823,5 +837,5 @@ CLScene::~CLScene(void) {
     GenericsHelper::deleteMap(m_effects);
     GenericsHelper::deleteMap(m_geometries);
     GenericsHelper::deleteMap(m_nodes);
-    SAFE_RELEASE(m_nodesId);
+    delete m_nodesId;
 }

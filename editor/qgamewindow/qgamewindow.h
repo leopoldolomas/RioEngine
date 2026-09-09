@@ -36,7 +36,7 @@
 class QGLGameViewport;
 class CLScene;
 class CGameScene;
-class QGLWidget;
+class QOpenGLWidget;
 
 namespace Ui {
 class QGameWindow;
@@ -51,14 +51,14 @@ public:
     explicit QGameWindow(QWidget *parent = 0,
                          CLScene* collada_scene = NULL,
                          CGameScene* game_scene = NULL,
-                         QGLWidget* shared_widget = NULL);
+                         QOpenGLWidget* shared_widget = NULL);
 
     void setDrawMode(QGLBaseViewport::QGLViewportDrawMode draw_mode);
 
     ~QGameWindow();
 
 private:
-    virtual void createGameViewport(CLScene* collada_scene, QGLWidget* shared_widget);
+    virtual void createGameViewport(CLScene* collada_scene, QOpenGLWidget* shared_widget);
     virtual void updateGUIState();
     virtual void closeEvent(QCloseEvent* event);
 

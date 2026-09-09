@@ -30,21 +30,21 @@
 #ifndef RIOENGINE_EDITOR_QGLBASEVIEWPORT_QGBASEVIEWPORT_H_
 #define RIOENGINE_EDITOR_QGLBASEVIEWPORT_QGBASEVIEWPORT_H_
 
-#include <QGLWidget>
+#include <QOpenGLWidget>
 #include "bullet/matrix/matrices.h"
 
-class QGLShaderProgram;
+class QOpenGLShaderProgram;
 
 /**
  * Provides basic functionality for any Viewport. See also QGLGameViewport and
  * QGLGameEditorViewport
  */
-class QGLBaseViewport : public QGLWidget {
+class QGLBaseViewport : public QOpenGLWidget {
     Q_OBJECT
 public:
     enum QGLViewportDrawMode { WIRED, SOLID, TEXTURED };
 
-    QGLBaseViewport(QWidget* parent, QGLWidget* shared_widget);
+    QGLBaseViewport(QWidget* parent, QOpenGLWidget* shared_widget);
 
     QGLViewportDrawMode drawMode() const;
     void setDrawMode(const QGLViewportDrawMode &value);
@@ -75,9 +75,9 @@ protected:
     QColor   m_clearColor;
     Matrix4  m_modelViewMatrix;
 
-    QGLShaderProgram *m_selectedProgram;
-    QGLShaderProgram *m_texturedProgram;
-    QGLShaderProgram *m_solidColorsProgram;
+    QOpenGLShaderProgram *m_selectedProgram;
+    QOpenGLShaderProgram *m_texturedProgram;
+    QOpenGLShaderProgram *m_solidColorsProgram;
 
 private:
     void setHasFocus(bool);

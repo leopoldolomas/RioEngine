@@ -46,6 +46,17 @@ CDirector::CDirector(void) {
     createDefaultCamera();
 }
 
+CDirector::CDirector(const CDirector&) : CObject() {
+    m_cameras = new std::map<std::string, CCamera*>();
+    m_actionManager = new CActionManager();
+
+    createDefaultCamera();
+}
+
+CDirector& CDirector::operator=(const CDirector&) {
+    return *this;
+}
+
 //-----------------------------------------------------------------------------
 
 CActionManager* CDirector::actionManager() const {

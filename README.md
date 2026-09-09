@@ -6,3 +6,17 @@ Rio Engine is my own 3D Game Engine. Having worked in the game industry for two 
  Since I do not have plans to release a stable version (due to the lack of time) I have decided to release the source code under the public domain, this way I might be able to help other developers. 
 
  Please notice that the current version is still experimental (v0.1). If you want to create your own video games and you do not have any experience yet, I suggest you start using Unity3D http://unity3d.com/ 
+
+## Building with Qt 6 on Windows
+
+The project can be configured with the Qt 6 MinGW kit:
+
+```powershell
+$env:Path = "D:\Qt\6.11.2\mingw_64\bin;D:\Qt\Tools\mingw1310_64\bin;$env:Path"
+qmake rioengine.pro
+mingw32-make -j2
+```
+
+The bundled irrKlang and Visual Leak Detector libraries are legacy MSVC binaries
+and cannot be linked by MinGW. Sound playback is therefore disabled in the
+MinGW build; the engine continues to run without the optional sound backend.

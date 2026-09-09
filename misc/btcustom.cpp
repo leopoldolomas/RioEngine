@@ -5,19 +5,19 @@ namespace btCustom {
 
 //-----------------------------------------------------------------------------
 
-btVector3 getAxisX(btMatrix3x3 &m) {
+btVector3 getAxisX(const btMatrix3x3 &m) {
     return btVector3(m[0][0], m[0][1], m[0][2]);
 }
 
 //-----------------------------------------------------------------------------
 
-btVector3 getAxisY(btMatrix3x3 &m) {
+btVector3 getAxisY(const btMatrix3x3 &m) {
     return btVector3(m[1][0], m[1][1], m[1][2]);
 }
 
 //-----------------------------------------------------------------------------
 
-btVector3 getAxisZ(btMatrix3x3 &m) {
+btVector3 getAxisZ(const btMatrix3x3 &m) {
     return btVector3(m[2][0], m[2][1], m[2][2]);
 }
 

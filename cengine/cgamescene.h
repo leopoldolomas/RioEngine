@@ -147,7 +147,7 @@ public:
     virtual ~CGameScene();
 
 protected:
-    std::string& createUniqueGameObjectName(std::string& original_name);
+    std::string createUniqueGameObjectName(std::string original_name);
 
     virtual void start();
 
@@ -175,7 +175,7 @@ protected:
     btDiscreteDynamicsWorld*                   m_dynamicsWorld;
 
 private:
-    std::string& fixName(std::string& name);
+    std::string fixName(std::string name);
 
     /**
      * Calls start() on the GameObject and on all of its children

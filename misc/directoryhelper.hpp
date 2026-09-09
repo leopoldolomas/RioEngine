@@ -30,6 +30,8 @@
 #ifndef RIOENGINE_MISC_DIRECTORYHELPER_H_
 #define RIOENGINE_MISC_DIRECTORYHELPER_H_
 
+#include <QCoreApplication>
+#include <QDir>
 #include <regex>
 #include "constants.h"
 #include "misc/dirent.h"
@@ -38,7 +40,10 @@
 class DirectoryHelper {
  public:
     static std::string getProjectDirectory() {
-        return std::string(k_RioEngineProjectPath); // TODO load this value from an INI file instead of hardcode
+        const QString project_directory = QDir::cleanPath(
+                    QCoreApplication::applicationDirPath() + QDir::separator() + "..")
+                    + QDir::separator();
+        return project_directory.toStdString();
     }
 
     //-----------------------------------------------------------------------------

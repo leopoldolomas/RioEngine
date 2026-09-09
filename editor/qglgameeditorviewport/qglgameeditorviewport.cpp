@@ -27,7 +27,10 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //--------------------------------------------------------------- @License ends
 
-#include <QtOpenGL/QtOpenGL>
+#include <QOpenGLFunctions>
+#include <QKeyEvent>
+#include <QMouseEvent>
+#include <QWheelEvent>
 #include <math.h>
 #include "constants.h"
 #include "misc/transform.h"
@@ -133,7 +136,7 @@ void QGLGameEditorViewport::paintGL() {
     if(CDIRECTOR->gameState() != CDirector::RUNNING) {
         QGLGameViewport::paintGL();
     } else {
-        qglClearColor(Qt::black);
+        glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     }
 }
@@ -790,7 +793,7 @@ void QGLGameEditorViewport::mouseReleaseEvent(QMouseEvent*) {
 //-----------------------------------------------------------------------------
 
 void QGLGameEditorViewport::wheelEvent(QWheelEvent* event) {
-    INPUTMANAGER->setWheelVelocity((float)event->delta());
+    INPUTMANAGER->setWheelVelocity((float)event->angleDelta().y());
 }
 
 //-----------------------------------------------------------------------------
