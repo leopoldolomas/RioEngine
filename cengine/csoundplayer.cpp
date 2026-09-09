@@ -27,7 +27,6 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //--------------------------------------------------------------- @License ends
 
-#include <irrklang/irrKlang.h>
 #include "constants.h"
 #include "misc/directoryhelper.hpp"
 #include "misc/genericshelper.hpp"
@@ -40,10 +39,7 @@ static int sound_id = 0;
 //-----------------------------------------------------------------------------
 
 CSoundPlayer::CSoundPlayer() {
-    m_engine    = irrklang::createIrrKlangDevice();
-    RE_ASSERT(m_engine);
-
-    m_soundsMap = std::map<int, irrklang::ISound*>();
+    m_soundsMap = std::map<int, void*>();
 }
 
 //-----------------------------------------------------------------------------
@@ -59,19 +55,16 @@ std::string CSoundPlayer::getPathForFilename(const char* filename) {
 //-----------------------------------------------------------------------------
 
 int CSoundPlayer::play2D(const char* filename, bool play_looped, bool start_paused, bool track) {
-    irrklang::ISound* sound = m_engine->play2D(getPathForFilename(filename).c_str(), play_looped, start_paused, track);
-
-    if(track) {
-        m_soundsMap.insert(std::pair<int, irrklang::ISound*>(sound_id, sound));
-        return sound_id++;
-    }
-
+    Q_UNUSED(filename);
+    Q_UNUSED(play_looped);
+    Q_UNUSED(start_paused);
+    Q_UNUSED(track);
     return -1;
 }
 
 //-----------------------------------------------------------------------------
 
-irrklang::ISound* CSoundPlayer::getISound(int id) {
+void* CSoundPlayer::getISound(int id) {
     RE_ASSERT(id >= 0);
     return m_soundsMap.at(id);
 }
@@ -79,5 +72,4 @@ irrklang::ISound* CSoundPlayer::getISound(int id) {
 //-----------------------------------------------------------------------------
 
 CSoundPlayer::~CSoundPlayer() {
-    m_engine->drop();
 }

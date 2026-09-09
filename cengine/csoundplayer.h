@@ -33,7 +33,6 @@
 
 #include "cengine/cobject.h"
 #include "cengine/csingleton.h"
-#include "irrklang/irrKlang.h"
 
 #define CSOUNDPLAYER CSingleton<CSoundPlayer>::getSharedInstance()
 
@@ -42,7 +41,7 @@ class CSoundPlayer : public CObject
 public:
     CSoundPlayer();
 
-    irrklang::ISound* getISound(int id);
+    void* getISound(int id);
     virtual int play2D(const char* filename, bool play_looped = false, bool start_paused = false, bool track = false);
 
     ~CSoundPlayer();
@@ -50,8 +49,7 @@ public:
 private:
     std::string getPathForFilename(const char* filename);
 
-    irrklang::ISoundEngine*           m_engine;
-    std::map<int, irrklang::ISound*> m_soundsMap;
+    std::map<int, void*> m_soundsMap;
 };
 
 #endif //  RIOENGINE_CENGINE_CSOUNDPLAYER_H_

@@ -305,11 +305,11 @@ bool CGameScene::existsGameObjectWithName(const std::string& name) {
 
 //-----------------------------------------------------------------------------
 
-std::string& CGameScene::fixName(std::string& name) {
+std::string CGameScene::fixName(std::string name) {
     std::string regex_ext_str = "_([0-9]*)";
-    std::tr1::regex regex_ext(regex_ext_str);
-    std::tr1::cmatch match;
-    if (regex_search(name.c_str(), match, regex_ext)) {
+    std::regex regex_ext(regex_ext_str);
+    std::cmatch match;
+    if (std::regex_search(name.c_str(), match, regex_ext)) {
         std::string match_str = match.str().substr(1, match.str().size() - 1);  // remove the '_' char
         unsigned int index = atoi(match_str.c_str());
 
@@ -327,7 +327,7 @@ std::string& CGameScene::fixName(std::string& name) {
 
 //-----------------------------------------------------------------------------
 
-std::string& CGameScene::createUniqueGameObjectName(std::string& name) {
+std::string CGameScene::createUniqueGameObjectName(std::string name) {
     while (existsGameObjectWithName(name)) {
         name = fixName(name);
     }

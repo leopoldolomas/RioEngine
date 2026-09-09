@@ -90,35 +90,6 @@ void quat_load_operator(QDataStream &in, void* dest) {
 class QCustomSerialization {
  public:
     static void registerCustomStreamOperators() {
-        int id = QMetaType::type("btQuaternion");
-        QMetaType::registerStreamOperators(id,
-                                           quat_save_operator,
-                                           quat_load_operator);
-
-        id = QMetaType::type("btVector3");
-        QMetaType::registerStreamOperators(id,
-                                           vec3_save_operator,
-                                           vec3_load_operator);
-
-        id = QMetaType::type("QList<CGameObject>");
-        QMetaType::registerStreamOperators(id,
-                                           serialize_qobject<QList<CGameObject>>,
-                                           deserialize_qobject<QList<CGameObject>>);
-
-        id = QMetaType::type("QList<CLInstanceGeometry>");
-        QMetaType::registerStreamOperators(id,
-                                           serialize_qobject<QList<CLInstanceGeometry>>,
-                                           deserialize_qobject<QList<CLInstanceGeometry>>);
-
-        id = QMetaType::type("QList<CLInstanceMaterial>");
-        QMetaType::registerStreamOperators(id,
-                                           serialize_qobject<QList<CLInstanceMaterial>>,
-                                           deserialize_qobject<QList<CLInstanceMaterial>>);
-
-        id = QMetaType::type("QList<QProperty>");
-        QMetaType::registerStreamOperators(id,
-                                           serialize_qobject<QList<QProperty>>,
-                                           deserialize_qobject<QList<QProperty>>);
     }
 
 private:

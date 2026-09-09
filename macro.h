@@ -37,11 +37,7 @@
 #include "typedefs.h"
 #include "buildconfig.h"
 
-#ifdef RE_DEBUG
-#define LOG qDebug
-#elif
-#define LOG dummyLog // TODO define
-#endif
+#define LOG(...) do {} while (0)
 
 //#undef printf
 //#define printf LOG
@@ -59,4 +55,4 @@
 
 #define VLD_ENABLED 0 // set to 1 to enable memory leak detection
 
-#endif _Macro_H_
+#endif // _Macro_H_

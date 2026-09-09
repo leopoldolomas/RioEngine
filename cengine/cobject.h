@@ -30,6 +30,7 @@
 #ifndef RIOENGINE_CENGINE_COBJECT_H_
 #define RIOENGINE_CENGINE_COBJECT_H_
 
+#include <QObject>
 #include "macro.h"
 
 #define SAFE_RETAIN(x)          CObject::safeRetain(x)

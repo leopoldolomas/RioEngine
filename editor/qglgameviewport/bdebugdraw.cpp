@@ -27,14 +27,15 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //--------------------------------------------------------------- @License ends
 
-#include <QtOpenGL>
+#include <QOpenGLShaderProgram>
+#include <QColor>
 #include "macro.h"
 #include "constants.h"
 #include "bdebugdraw.h"
 
 //-----------------------------------------------------------------------------
 
-bDebugDraw::bDebugDraw(QGLShaderProgram* shader_program) {
+bDebugDraw::bDebugDraw(QOpenGLShaderProgram* shader_program) {
     m_shaderProgram = shader_program;
     m_drawMode      = k_bdebugdraw_DefaultDebugMode;
 }

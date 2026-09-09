@@ -41,7 +41,7 @@
 QGameWindow::QGameWindow(QWidget *parent,
                          CLScene* collada_scene,
                          CGameScene* game_scene,
-                         QGLWidget* shared_widget) :
+                         QOpenGLWidget* shared_widget) :
     QMainWindow(parent),
     m_ui(new Ui::QGameWindow) {
     m_ui->setupUi(this);
@@ -70,7 +70,7 @@ void QGameWindow::setDrawMode(QGLBaseViewport::QGLViewportDrawMode draw_mode) {
 //-----------------------------------------------------------------------------
 
 void QGameWindow::createGameViewport(CLScene* collada_scene,
-                                     QGLWidget* shared_widget) {
+                                     QOpenGLWidget* shared_widget) {
     m_gameViewport = new QGLGameViewport(collada_scene, shared_widget);
     setCentralWidget(m_gameViewport);
 }
@@ -84,7 +84,7 @@ void QGameWindow::updateGUIState() {
 
 void QGameWindow::TimeOut(void) {
     if (m_gameViewport) {
-        m_gameViewport->updateGL();
+        m_gameViewport->update();
     }
 }
 

@@ -13,7 +13,7 @@
 #include "Vec3fProperty.h"
 #include "CustomTypes.h"
 
-#include <QRegExp>
+#include <QRegularExpression>
 
 Vec3fProperty::Vec3fProperty(const QString& name /*= QString()*/, QObject* propertyObject /*= 0*/, QObject* parent /*= 0*/) : Property(name, propertyObject, parent)
 {
@@ -44,23 +44,25 @@ void Vec3fProperty::setValue(const QVariant& value)
 	if (value.type() == QVariant::String)
 	{
 		QString v = value.toString();				
-		QRegExp rx("([+-]?([0-9]*[\\.,])?[0-9]+(e[+-]?[0-9]+)?)");
-		rx.setCaseSensitivity(Qt::CaseInsensitive);
+		QRegularExpression rx("([+-]?([0-9]*[\\.,])?[0-9]+(e[+-]?[0-9]+)?)",
+			QRegularExpression::CaseInsensitiveOption);
 		int count = 0;
 		int pos = 0;
 		float x = 0.0f, y = 0.0f, z = 0.0f;
-		while ((pos = rx.indexIn(v, pos)) != -1) 
+		QRegularExpressionMatch match = rx.match(v, pos);
+		while (match.hasMatch())
 		{
 			if (count == 0)
-				x = rx.cap(1).toDouble();
+				x = match.captured(1).toDouble();
 			else if (count == 1)
-				y = rx.cap(1).toDouble();
+				y = match.captured(1).toDouble();
 			else if (count == 2)
-				z = rx.cap(1).toDouble();
+				z = match.captured(1).toDouble();
 			else if (count > 2)
 				break;
 			++count;
-			pos += rx.matchedLength();
+			pos += match.capturedLength();
+			match = rx.match(v, pos);
 		}
 		m_x->setProperty("x", x);
 		m_y->setProperty("y", y);
@@ -110,18 +112,21 @@ void Vec3fProperty::setZ(float z)
 
 QString Vec3fProperty::parseHints(const QString& hints, const QChar component )
 {
-	QRegExp rx(QString("(.*)(")+component+QString("{1})(=\\s*)(.*)(;{1})"));
-	rx.setMinimal(true);
+	QRegularExpression rx(QString("(.*)(") + QRegularExpression::escape(QString(component))
+		+ QString("{1})(=\\s*)(.*)(;{1})"),
+		QRegularExpression::InvertedGreedinessOption);
 	int pos = 0;
 	QString componentHints;
-	while ((pos = rx.indexIn(hints, pos)) != -1) 
+	QRegularExpressionMatch match = rx.match(hints, pos);
+	while (match.hasMatch())
 	{
 		// cut off additional front settings (TODO create correct RegExp for that)
-		if (rx.cap(1).lastIndexOf(';') != -1)			
-			componentHints += QString("%1=%2;").arg(rx.cap(1).remove(0, rx.cap(1).lastIndexOf(';')+1)).arg(rx.cap(4));
+		if (match.captured(1).lastIndexOf(';') != -1)
+			componentHints += QString("%1=%2;").arg(match.captured(1).mid(match.captured(1).lastIndexOf(';')+1)).arg(match.captured(4));
 		else
-			componentHints += QString("%1=%2;").arg(rx.cap(1)).arg(rx.cap(4));
-		pos += rx.matchedLength();
+			componentHints += QString("%1=%2;").arg(match.captured(1)).arg(match.captured(4));
+		pos += match.capturedLength();
+		match = rx.match(hints, pos);
 	}
 	return componentHints;
 }

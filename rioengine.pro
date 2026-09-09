@@ -1,6 +1,8 @@
-QT       += core gui opengl
+QT += core gui opengl openglwidgets
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
+
+CONFIG += c++11
 
 TARGET = rioengine
 TEMPLATE = app
@@ -12,9 +14,7 @@ INCLUDEPATH += $$_PRO_FILE_PWD_/libs/include/
 LIBS += -L"$$_PRO_FILE_PWD_/libs/lib/"
 
 LIBS += -lWinmm
-LIBS += -lirrKlang
-LIBS += -lvld
-LIBS += opengl32.lib
+LIBS += -lopengl32
 LIBS += -luser32
 
 QMAKE_CXXFLAGS += -Wno-unused-variable -fpermissive

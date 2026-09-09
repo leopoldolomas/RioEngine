@@ -30,7 +30,7 @@
 #ifndef RIOENGINE_EDITOR_QGLGAMEVIEWPORT_BDEBUGDRAW_H
 #define RIOENGINE_EDITOR_QGLGAMEVIEWPORT_BDEBUGDRAW_H
 
-#include <QGLShaderProgram>
+#include <QOpenGLShaderProgram>
 #include "bullet/btBulletDynamicsCommon.h"
 
 class bDebugDraw : public btIDebugDraw {
@@ -39,7 +39,7 @@ public:
         btVector3 from, to;
     };
 
-    bDebugDraw(QGLShaderProgram* shader_program = NULL);
+    bDebugDraw(QOpenGLShaderProgram* shader_program = NULL);
     std::map<QString, std::vector<LineInfo>>* lines();
 
     void clearLines();
@@ -58,7 +58,7 @@ public:
 private:
     int m_drawMode;
 
-    QGLShaderProgram* m_shaderProgram;
+    QOpenGLShaderProgram* m_shaderProgram;
     std::map<QString, std::vector<LineInfo>> m_lines;
 };
 

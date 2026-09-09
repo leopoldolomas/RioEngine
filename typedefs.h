@@ -31,6 +31,7 @@
 #define RIOENGINE_TYPEDEFS_H_
 
 #include <map>
+#include <string>
 #include <vector>
 
 

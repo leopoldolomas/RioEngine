@@ -141,14 +141,16 @@ void QVariantDelegate::parseEditorHints(QWidget* editor, const QString& editorHi
 	{
 		editor->blockSignals(true);
 		// Parse for property values
-		QRegExp rx("(.*)(=\\s*)(.*)(;{1})");
-		rx.setMinimal(true);
+		QRegularExpression rx("(.*)(=\\s*)(.*)(;{1})",
+			QRegularExpression::InvertedGreedinessOption);
 		int pos = 0;
-		while ((pos = rx.indexIn(editorHints, pos)) != -1) 
+		QRegularExpressionMatch match = rx.match(editorHints, pos);
+		while (match.hasMatch())
 		{
 			//qDebug("Setting %s to %s", qPrintable(rx.cap(1)), qPrintable(rx.cap(3)));
-			editor->setProperty(qPrintable(rx.cap(1).trimmed()), rx.cap(3).trimmed());				
-			pos += rx.matchedLength();
+			editor->setProperty(qPrintable(match.captured(1).trimmed()), match.captured(3).trimmed());
+			pos += match.capturedLength();
+			match = rx.match(editorHints, pos);
 		}
 		editor->blockSignals(false);
 	}
@@ -158,3 +160,4 @@ void QVariantDelegate::editorDestroyed(QObject*)
 {
     emit finishPropertyEdit();
 }
+#include <QRegularExpression>

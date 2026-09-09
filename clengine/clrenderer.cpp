@@ -28,6 +28,7 @@
 //--------------------------------------------------------------- @License ends
 
 #include "constants.h"
+#include <QColor>
 #include "misc/color.h"
 #include "misc/transform.h"
 #include "misc/stringhelper.hpp"
@@ -38,7 +39,7 @@
 
 //-----------------------------------------------------------------------------
 
-bool CLRenderer::drawNode(QGLShaderProgram* program, CLScene* collada_scene,
+bool CLRenderer::drawNode(QOpenGLShaderProgram* program, CLScene* collada_scene,
                           CLNode* node, QColor* color) {
     if (!node->visible()) {
         return false;
@@ -140,7 +141,7 @@ bool CLRenderer::drawNode(QGLShaderProgram* program, CLScene* collada_scene,
 
 //-----------------------------------------------------------------------------
 
-bool CLRenderer::drawLine(QGLShaderProgram* program, btVector3 &from, btVector3 &to, QColor* color) {
+bool CLRenderer::drawLine(QOpenGLShaderProgram* program, const btVector3 &from, const btVector3 &to, QColor* color) {
     if (!color) {
         color = &QColor();
     }
@@ -169,7 +170,7 @@ bool CLRenderer::drawLine(QGLShaderProgram* program, btVector3 &from, btVector3 
 
 //-----------------------------------------------------------------------------
 
-bool CLRenderer::drawDebugLines(QGLShaderProgram* program, std::map<QString, std::vector<bDebugDraw::LineInfo>>* lines) {
+bool CLRenderer::drawDebugLines(QOpenGLShaderProgram* program, std::map<QString, std::vector<bDebugDraw::LineInfo>>* lines) {
     QMatrix4x4 mat;
     mat.setToIdentity();
     program->setUniformValue("modelMatrix", mat);

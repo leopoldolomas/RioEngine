@@ -42,7 +42,7 @@ class QGLGameViewport : public QGLBaseViewport {
     Q_OBJECT
 
 public:
-    QGLGameViewport(CLScene* collada_scene, QGLWidget* shared_widget);
+    QGLGameViewport(CLScene* collada_scene, QOpenGLWidget* shared_widget);
 
     void setColladaScene(CLScene* collada_scene);
     CLScene* colladaScene() const;

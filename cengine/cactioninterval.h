@@ -76,7 +76,7 @@ protected:
 class CMoveBy : public CMoveTo {
 public:
     CMoveBy() : CMoveTo() {}
-    CMoveBy(float duration, btVector3& position);
+    CMoveBy(float duration, const btVector3& position);
 
     virtual void startWithTarget(CGameObject* target);
     virtual CActionInterval* reverse();

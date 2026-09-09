@@ -28,6 +28,7 @@
 //--------------------------------------------------------------- @License ends
 
 #include "constants.h"
+#include <QOpenGLTexture>
 #include "misc/matrixstack.h"
 #include "misc/stringhelper.hpp"
 #include "misc/directoryhelper.hpp"
@@ -44,7 +45,7 @@
 //-----------------------------------------------------------------------------
 
 QGLGameViewport::QGLGameViewport(CLScene* collada_scene,
-                                 QGLWidget*  shared_widget) : QGLBaseViewport(this, shared_widget) {
+                                 QOpenGLWidget* shared_widget) : QGLBaseViewport(NULL, shared_widget) {
     setColladaScene(collada_scene);
     m_bDebugDraw = NULL;
 }
@@ -148,7 +149,6 @@ void QGLGameViewport::customDraw() {
 
     // draw sky box
     MATRIXSTACK->pushMatrix();
-    MATRIXSTACK->translate(CDIRECTOR->getActiveCamera()->transform().localPosition());
     MATRIXSTACK->rotate(DEGTORAD(90.0f), 0, 0);
     MATRIXSTACK->scale(5000.0f);
     drawSkybox();
@@ -191,9 +191,11 @@ void QGLGameViewport::bindTextures() {
         CLImageDetails* img_detail = i->second;
         if (img_detail->texture == 0) {
             std::string fixed_filename = DirectoryHelper::getAssetsDirectory() + img_detail->filename;
-            GLuint texture_id = bindTexture(QPixmap(QString::fromStdString(fixed_filename)),
-                                            GL_TEXTURE_2D);
-            img_detail->texture = texture_id;
+            QOpenGLTexture* texture = new QOpenGLTexture(
+                        QImage(QString::fromStdString(fixed_filename)));
+            texture->setAutoMipMapGenerationEnabled(false);
+            texture->create();
+            img_detail->texture = texture->textureId();
         }
     }
 }

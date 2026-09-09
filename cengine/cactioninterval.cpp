@@ -120,7 +120,7 @@ void CMoveTo::update(float t) {
 
 // ----------------------------------------------------- CMoveBy implementation
 
-CMoveBy::CMoveBy(float duration, btVector3 &position) {
+CMoveBy::CMoveBy(float duration, const btVector3 &position) {
     initWithDuration(duration);
     m_delta = position;
 }

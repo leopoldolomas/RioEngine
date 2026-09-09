@@ -176,7 +176,7 @@ public:
     void setPosition(float x, float y, float z);
 
     const btVector3 scale();
-    void setScale(btVector3 &scale);
+    void setScale(const btVector3 &scale);
     void setScale(float x, float y, float z);
     void setScale(float scale);
 
@@ -203,7 +203,7 @@ public:
     void setbShapeTypeVertices(QString vertices);
 
     const btVector3 bShapeTypePlaneNormal() const;
-    void setbShapeTypePlaneNormal(btVector3& normal);
+    void setbShapeTypePlaneNormal(const btVector3& normal);
 
     const float bShapeTypePlaneConstant() const;
     void setbShapeTypePlaneConstant(float plane_constant);

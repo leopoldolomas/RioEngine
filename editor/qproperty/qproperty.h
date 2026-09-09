@@ -30,6 +30,7 @@
 #ifndef RIOENGINE_EDITOR_QPROPERTY_QPROPERTY_H_
 #define RIOENGINE_EDITOR_QPROPERTY_QPROPERTY_H_
 
+#include <QVariant>
 #include "cengine/cobject.h"
 
 class QProperty : public CObject {

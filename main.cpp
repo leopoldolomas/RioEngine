@@ -30,7 +30,7 @@
 #include <windows.h>
 #include <tchar.h>
 #include <QApplication>
-#include <QtMessageHandler>
+#include <QDebug>
 #include "macro.h"
 #include "editor/editorwindow.h"
 #include "editor/logwindow/logwindow.h"

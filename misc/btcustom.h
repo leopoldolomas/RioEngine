@@ -6,9 +6,9 @@
 
 namespace btCustom {
 
-btVector3 getAxisX(btMatrix3x3 &m);
-btVector3 getAxisY(btMatrix3x3 &m);
-btVector3 getAxisZ(btMatrix3x3 &m);
+btVector3 getAxisX(const btMatrix3x3 &m);
+btVector3 getAxisY(const btMatrix3x3 &m);
+btVector3 getAxisZ(const btMatrix3x3 &m);
 
 btVector3 getAxisX(const btQuaternion &q);
 btVector3 getAxisY(const btQuaternion &q);

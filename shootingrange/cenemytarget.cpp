@@ -27,7 +27,6 @@
 // SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 //--------------------------------------------------------------- @License ends
 
-#include <irrklang/irrKlang.h>
 #include "cengine/cactioninterval.h"
 #include "cengine/csoundplayer.h"
 #include "shootingrange/cbullet.h"
@@ -146,12 +145,7 @@ void CEnemyTarget::onGoUpActionStart(CAction* action) {
 //-----------------------------------------------------------------------------
 
 void CEnemyTarget::stopAllSounds() {
-    if(doSlide() && m_slideSoundId > -1) {
-        irrklang::ISound* sound = CSOUNDPLAYER->getISound(m_slideSoundId);
-        sound->stop();
-        sound->drop();
-        m_slideSoundId = -1;
-    }
+    m_slideSoundId = -1;
 }
 
 //-----------------------------------------------------------------------------

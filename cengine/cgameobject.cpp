@@ -142,7 +142,7 @@ const btVector3 CGameObject::scale() {
 
 //-----------------------------------------------------------------------------
 
-void CGameObject::setScale(btVector3 &scale) {
+void CGameObject::setScale(const btVector3 &scale) {
     transform().setLocalScale(scale);
 }
 
@@ -392,7 +392,7 @@ const btVector3 CGameObject::bShapeTypePlaneNormal() const {
 
 //-----------------------------------------------------------------------------
 
-void CGameObject::setbShapeTypePlaneNormal(btVector3 &plane_normal) {
+void CGameObject::setbShapeTypePlaneNormal(const btVector3 &plane_normal) {
     bulletProperties.setPlaneNormal(plane_normal);
 }
 
